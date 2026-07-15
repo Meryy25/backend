@@ -1,9 +1,10 @@
-const UserSchema = require('./user.validation');
-const EventSchema = require('./event.validation');
-const ReviewSchema = require('./review.validation');
+const { userSchema, loginSchema } = require('./user.validation');
+const { eventSchema } = require('./event.validation');
+const { reviewSchema } = require('./review.validation');
 
 module.exports = {
-    UserSchema,
-    EventSchema,
-    ReviewSchema,
+    userSchema,
+    loginSchema,
+    eventSchema,
+    reviewSchema,
 };

@@ -19,7 +19,12 @@ const userSchema = z.object({
         .string()
         .min(8, 'Password must be at least 8 characters'),
 
-    role: z.enum["member", "organizer"],
+    role: z.enum(["member", "organizer"]),
 });
 
-module.exports = { userSchema };
+const loginSchema = z.object({
+    email: z.email(),
+    password: z.string().min(8)
+});
+
+module.exports = { userSchema, loginSchema };

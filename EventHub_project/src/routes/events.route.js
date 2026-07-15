@@ -3,7 +3,7 @@ const eventController = require('../controllers/events.controller');
 const reviewController = require('../controllers/reviews.controller');
 const attendanceController = require('../controllers/attendances.controller');
 const asyncHandler = require('../../utils/asyncHandler');
-const { EventSchema, ReviewSchema } = require('../zodValidations');
+const { eventSchema } = require('../zodValidations');
 const { 
     AuthMiddleware, 
     MemberMiddleware, 
@@ -19,13 +19,13 @@ router.post(
     '/', 
     AuthMiddleware,
     OrganizerMiddleware,
-    ValidationMiddleware(EventSchema),
+    ValidationMiddleware(eventSchema),
     asyncHandler(eventController.createEvent));
 router.patch(
     '/:id', 
     AuthMiddleware,
     OrganizerMiddleware,
-    ValidationMiddleware(EventSchema),
+    ValidationMiddleware(eventSchema),
     asyncHandler(eventController.updateEvent));
 router.delete(
     '/:id', 
@@ -35,20 +35,17 @@ router.delete(
 
 router.get(
     '/:id/reviews', 
-    AuthMiddleware,
     asyncHandler(reviewController.getReview));
 router.post(
     '/:id/reviews', 
     AuthMiddleware,
     MemberMiddleware,
-    ValidationMiddleware(ReviewSchema),
     asyncHandler(reviewController.createReview));
 
 router.post(
     '/:id/join',
     AuthMiddleware,
     MemberMiddleware,
-    ValidationMiddleware(EventSchema),
     asyncHandler(attendanceController.joinEvent));
 router.delete(
     '/:id/leave', 

@@ -40,14 +40,19 @@ const userSchema = new mongoose.Schema(
     }
 );
 
-userSchema.pre("save", async function (next) {
-    if(!this.isModified('password')) return next();
+userSchema.pre('save', async function() {
+
+    if(!this.isModified('password')) {
+        return;
+    }
+
     this.password = await hashPass(this.password);
 
-    next();
 });
 
-userSchema.methods.comparePass = comparePass;
+userSchema.methods.comparePass = function(password) {
+    return comparePass(password, this.password);
+};
 
 userSchema.methods.toJSON = function () {
     const obj = this.toObject();

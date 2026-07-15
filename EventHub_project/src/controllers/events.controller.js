@@ -13,6 +13,7 @@ const eventById = async (req, res) => {
 };
 
 const createEvent = async (req, res) => {
+    console.log('create event');
     const newEvent = await eventService.createEvent(req.user.id, req.body);
 
     res.status(201).send({ message: 'Event created', newEvent });
